@@ -2,28 +2,37 @@ package space.kroha.mymovies.data;
 
 public class Movie {
     private int id;
-    private int voteCount; //колличество голосов
-    private String title; //заголовок
-    private String originalTitle; //орегинальный заголовок
-    private String overview; //описание
-    private String posterPath; //путь к постеру
-    private String backdropPath; // путь к основному постеру
-    private double voteAverage; //рейтинг
-    private String releaseDate; //дата релиза
+    private int voteCount;
+    private String title;
+    private String originalTitle;
+    private String overview;
+    private String posterPath;
+    private String bigPosterPath;
+    private String backdropPath;
+    private double voteAverage;
+    private String releaseDate;
 
-    //конструктор
-    public Movie(int id, int voteCount, String title, String originalTitle, String overview, String posterPath, String backdropPath, double voteAverage, String releaseDate) {
+    public Movie(int id, int voteCount, String title, String originalTitle, String overview, String posterPath, String bigPosterPath, String backdropPath, double voteAverage, String releaseDate) {
         this.id = id;
         this.voteCount = voteCount;
         this.title = title;
         this.originalTitle = originalTitle;
         this.overview = overview;
         this.posterPath = posterPath;
+        this.bigPosterPath = bigPosterPath;
         this.backdropPath = backdropPath;
         this.voteAverage = voteAverage;
         this.releaseDate = releaseDate;
     }
-//Геттеры и сеттеры
+
+    public String getBigPosterPath() {
+        return bigPosterPath;
+    }
+
+    public void setBigPosterPath(String bigPosterPath) {
+        this.bigPosterPath = bigPosterPath;
+    }
+
     public int getId() {
         return id;
     }
