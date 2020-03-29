@@ -3,4 +3,8 @@
     <string name="poster_of_movie">Постер к фильму</string>
     <string name="most_popular">Самые популярные</string>
     <string name="top_rated">Наиболее рейтинговые</string>
+    <string name="add_to_favourite">Добавленно в избранное</string>
+    <string name="remove_from_favourite">удалено из избранного</string>
+    <string name="item_main">Главная</string>
+    <string name="item_favourite">Избранное</string>
 </resources>

@@ -16,8 +16,8 @@
         android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
 
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/btn_dialog" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_marginTop="8dp"
         android:text="Название:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewBigPoster" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAddToFavorite" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineCenter"
@@ -47,7 +47,7 @@
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewBigPoster" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAddToFavorite" />
 
     <TextView
         android:id="@+id/textViewLabelOriginalTitle"
@@ -132,5 +132,16 @@
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLabelDescription" />
+
+    <ImageView
+        android:id="@+id/imageViewAddToFavorite"
+        android:layout_width="@dimen/size_of_star"
+        android:layout_height="@dimen/size_of_star"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewBigPoster"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBigPoster"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBigPoster"
+        app:srcCompat="@drawable/favourite_remove"
+        android:onClick="onClickChangeFavourite"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
