@@ -1,6 +1,11 @@
 package space.kroha.mymovies.data;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "movies")
 public class Movie {
+    @PrimaryKey
     private int id;
     private int voteCount;
     private String title;

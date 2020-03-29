@@ -1,9 +1,14 @@
 package space.kroha.mymovies;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +20,9 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import space.kroha.mymovies.data.MainViewModel;
 import space.kroha.mymovies.data.Movie;
 import space.kroha.mymovies.utils.JSONUtils;
 import space.kroha.mymovies.utils.NetworkUtils;
@@ -27,11 +34,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewTopRated;
     private TextView textViewPopulatity;
 
+    private MainViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         switchSort = findViewById(R.id.switchSort);
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         textViewTopRated = findViewById(R.id.textViewTopRetad);
         textViewPopulatity = findViewById(R.id.textViewPopularity);
         recyclerViewPosters = findViewById(R.id.recyclerViewPosters);
@@ -49,7 +59,10 @@ public class MainActivity extends AppCompatActivity {
             movieAdapter.setOnPosterClickListener(new MovieAdapter.OnPosterClickListener() {
                 @Override
                 public void onPosterClick(int position) {
-                    Toast.makeText(MainActivity.this, "Click " + position, Toast.LENGTH_SHORT).show();
+                    Movie movie = movieAdapter.getMovies().get(position);
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra("id", movie.getId());
+                    startActivity(intent);
                 }
             });
             movieAdapter.setOnReachEndListener(new MovieAdapter.OnReachEndListener() {
@@ -58,6 +71,14 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Конец списка", Toast.LENGTH_SHORT).show();
                 }
             });
+
+        LiveData<List<Movie>> moviesFromLiveData = viewModel.getMovies();
+        moviesFromLiveData.observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+                movieAdapter.setMovies(movies);
+            }
+        });
         }
 
     public void onClickSetPopularity(View view) {
@@ -82,9 +103,18 @@ public class MainActivity extends AppCompatActivity {
             textViewTopRated.setTextColor(getResources().getColor(R.color.white_color));
             methodOfSort = NetworkUtils.POPULARITY;
         }
+        dowloadData(methodOfSort,1);
+    }
+
+    private void dowloadData(int methodOfSort, int page){
         JSONObject jsonObject = NetworkUtils.getJSONFromNetwork(methodOfSort,1);
         ArrayList<Movie> movies = JSONUtils.getMoviesFromJSON(jsonObject);
-        movieAdapter.setMovies(movies);
+        if (movies != null && !movies.isEmpty()){
+            viewModel.deleteAllMovies();
+            for(Movie movie : movies){
+                viewModel.insertMovie(movie);
+            }
+        }
     }
 }
 
