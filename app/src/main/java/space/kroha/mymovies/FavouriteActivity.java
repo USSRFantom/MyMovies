@@ -1,11 +1,9 @@
 package space.kroha.mymovies;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +17,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import space.kroha.mymovies.adapters.MovieAdapter;
 import space.kroha.mymovies.data.FavouriteMovie;
 import space.kroha.mymovies.data.MainViewModel;
 import space.kroha.mymovies.data.Movie;
